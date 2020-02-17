@@ -72,13 +72,13 @@ module.exports = {
                 use: ['html-withimg-loader'],
             },
             //babel 配置
-            // {
-            //     test: /\.(jsx|js)$/,
-            //     use: {
-            //         loader: 'babel-loader',
-            //     },
-            //     exclude: /node_modules/,
-            // },
+            {
+                test: /\.(jsx|js)$/,
+                use: {
+                    loader: 'babel-loader',
+                },
+                exclude: /node_modules/,
+            },
         ],
     },
     //插件，用于生产模板和各项功能
