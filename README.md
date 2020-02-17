@@ -1,2 +1,2 @@
 # myWebpack4
-练习webpack配置的实践
+从零开始进行webpack4的配置
