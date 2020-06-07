@@ -1,10 +1,6 @@
-class Person {
-    constructor() {
-        this.name = 'yeizi'
-    }
-    sayName() {
-        console.log(`my name is ${this.name}`)
-    }
+const a = {
+    init() {
+        console.log('aaa')
+    },
 }
-let p = new Person()
-p.sayName()
+export default a
