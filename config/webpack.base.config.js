@@ -3,6 +3,7 @@ let path = require('path')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
 // 拆分css样式的插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HelloWorldPlugin = require('../myPlugin/helloWord')
 
 // 这里的IP和端口，是你本机的ip或者是你devServer配置的IP和端口。
 var website = {
@@ -33,6 +34,11 @@ module.exports = {
         filename: '[name].js', // 打包后会生成index.js和login.js文件
         publicPath: website.publicPath, //publicPath：主要作用就是处理静态文件路径的。
     },
+    // 1.配置 Webpack 如何寻找 Loader
+    resolveLoader: {
+        // 2.去哪些目录下寻找 Loader，有先后顺序之分，先去node_modules寻找，再去./myLoader/下寻找
+        modules: ['node_modules', './myLoader/'],
+    },
     // 提取公共代码（两个文件相同的部分）
     optimization: {
         splitChunks: {
@@ -57,6 +63,18 @@ module.exports = {
 
     module: {
         rules: [
+            {
+                test: /\.js$/, // 匹配 .js 结尾的文件,注意test的值不是一个字符串，而是一个正则,
+                use: {
+                    loader: 'console-loader', // 2.使用自定义 console-loader
+                    options: {
+                        // 3.给 自定义 console-loader 加载器 传递参数
+                        // 4.如果为true 就会把js中所有的console.log语法删除
+                        // 5.如果为false则不就会删除
+                        clear: true,
+                    },
+                },
+            },
             {
                 test: /\.(le|sc|c)ss$/, // 可以打包后缀为less/scss/css的文件
                 use: [
@@ -147,6 +165,10 @@ module.exports = {
             // 即可以通过在名字前加路径，来决定打包后的文件存在的路径
             filename: 'css/[name].css',
             chunkFilename: 'css/[name].css',
+        }),
+        new HelloWorldPlugin({
+            name: 'helloPlugin',
+            des: '我是一段配置',
         }),
     ],
 }
